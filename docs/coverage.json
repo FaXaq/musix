@@ -1,0 +1,33 @@
+{
+  "coverage": "57.89%",
+  "expectCount": 19,
+  "actualCount": 11,
+  "files": {
+    "src/class/Accidental.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        3,
+        5
+      ]
+    },
+    "src/class/Note.js": {
+      "expectCount": 13,
+      "actualCount": 11,
+      "undocumentLines": [
+        37,
+        38
+      ]
+    },
+    "src/class/Pitch.js": {
+      "expectCount": 3,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        3,
+        4
+      ]
+    }
+  }
+}

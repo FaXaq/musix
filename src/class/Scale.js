@@ -153,14 +153,11 @@ module.exports = class Scale {
       newNote = this._applyIntervalChange(interval, newNote, prevNote, this.intervals.length >= Note.getNotes().length)
 
       if (Note.equalsName(newNote, prevNote) && i > 0) {
-        console.log('finding alias', newNote.getFullName())
         newNote = NoteAlias.findAlias(newNote, this.key)
-        console.log('found alias', newNote.getFullName())
       }
 
       this.notes.push(newNote)
     }
-    console.log('\n\n\n\n\n')
   }
 
   /* end have to refactor this part */

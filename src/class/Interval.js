@@ -192,6 +192,7 @@ class Interval {
   constructor(name) {
     if (intervals.hasOwnProperty(name)) {
       for (var prop in intervals[name]) {
+        this.name = name
         this[prop] = intervals[name][prop]
       }
     }
@@ -199,6 +200,10 @@ class Interval {
 
   getParent() {
     return new Interval(this.parent)
+  }
+
+  getName() {
+    return this.name
   }
 
   hasParent() {

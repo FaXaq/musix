@@ -9,6 +9,35 @@ let n = new Scale({
   key: new Note('C', 4)
 })
 
-console.log(JSON.stringify(n))
+n = new Scale({
+  name: 'major',
+  key: new Note('G', 4, 's')
+})
+
+n = new Scale({
+  name: 'minor',
+  key: new Note('A', 4)
+})
+
+n = new Scale({
+  name: 'major',
+  key: new Note('D', 4, 'b')
+})
+
+n = new Scale({
+  name: 'major',
+  key: new Note('B', 4, 'b')
+})
+
+n = new Scale({
+  name: 'major-pentatonic',
+  key: new Note('B', 4, 'b')
+})
+
+n = new Scale({
+  name: 'minor-pentatonic',
+  key: new Note('B', 4)
+})
+
 
 exports.Note = Note;

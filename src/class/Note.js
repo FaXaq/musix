@@ -48,6 +48,14 @@ class Note {
     return this.accidental
   }
 
+  getPitch() {
+    return this.pitch
+  }
+
+  getFullName() {
+    return Note.getFullName(this)
+  }
+
   duplicate() {
     return new Note(this.name,
                     this.pitch.getValue(),
@@ -62,37 +70,39 @@ class Note {
   }
 
   sharpenTo(semitones, addAccidental, prevNote) {
-    console.log('sharpening to', semitones, addAccidental)
+    // console.log('sharpening to', semitones, addAccidental)
     while (semitones > 0) {
       /* check to change note only for last occurence */
       this.sharpen(addAccidental, prevNote)
       semitones--
     }
-
-    console.log('sharpened to', this)
     return
+  }
+
+  toOctaveUp() {
+    this.pitch.next()
+  }
+
+  toOctaveDown() {
+    this.pitch.previous()
   }
 
   /**
    * Sharpen note
    */
   sharpen(addAccidental, prevNote) {
-    console.log('-----')
-    console.log('sharpening')
-    /* console.log(this)
-     * console.log(addAccidental)
-     * console.log('-----') */
+    // console.log('sharpening', this.getFullName())
     if (this.hasAccidental()) {
       this._sharpenWithAccidental(addAccidental, prevNote)
     } else {
       /* logic here, if note is a B or E, push it to the next note not passing by accidental -> to change if note is in scale */
-      if ((this._isBorE() && !addAccidental) || Note.equalsName(prevNote, this)) {
+      if (this._isBorE() && !addAccidental) {
         this.setToNextNote()
-        this.removeAccidental()
       } else {
         this.accidental.setToSharp()
       }
     }
+    // console.log('sharpened', this.getFullName())
   }
 
   flattenTo(semitones, addAccidental, prevNote) {
@@ -107,17 +117,18 @@ class Note {
    * Flatten note
    */
   flatten(addAccidental, prevNote) {
+    // console.log('flattening', this.getFullName())
     if (this.hasAccidental()) {
       this._flattenWithAccidental(addAccidental, prevNote)
     } else {
       /* logic here, if note is a C or F, push it to the previous note */
-      if ((this._isCorF() && !addAccidental) || Note.equalsName(prevNote, this)) {
+      if (this._isCorF() && !addAccidental) {
         this.setToPreviousNote()
-        this.removeAccidental()
       } else {
         this.accidental.setToFlat()
       }
     }
+    // console.log('flattened', this.getFullName())
   }
 
   setToNextNote() {
@@ -138,12 +149,15 @@ class Note {
    * Sharpen Note with already an accidental
    */
   _sharpenWithAccidental(addAccidental, prevNote) {
+    // console.log('sharpening with accidental')
     /* if it already has an accidental */
     if (Accidental.isSharp(this.accidental)) {
-      if (!addAccidental || Note.equals(prevNote, this)) {
+      if (!addAccidental) {
         /* remove accidental and skip to next note */
+        if (!this._isBorE()) {
+          this.removeAccidental()
+        }
         this.setToNextNote()
-        if (!prevNote._isBorE()) this.removeAccidental()
       } else {
         /* add accidental */
         this.accidental.setToDoubleSharp()
@@ -155,10 +169,11 @@ class Note {
       /* if it has a double flat sharpen it by setting it to flat only */
       this.setToFlat()
     } else if (this.accidental.isDoubleSharp()) {
-      /* if it has already a double sharp (not likely to happen) set it to next note and add a sharp to it */
+      /* if it has already a double sharp set it to next note and add a sharp to it, take care of the double sharps keeping for E and B */
+      if (!this._isBorE()) {
+        this.accidental.setToSharp()
+      }
       this.setToNextNote()
-      this.removeAccidental()
-      this.sharpen(addAccidental)
     }
   }
 
@@ -167,23 +182,26 @@ class Note {
     if (Accidental.isFlat(this.accidental)) {
       if (!addAccidental) {
         /* remove accidental and skip to next note */
+        if (!this._isCorF()) {
+          this.removeAccidental()
+        }
         this.setToPreviousNote()
-        this.removeAccidental()
       } else {
         /* add accidental */
         this.accidental.setToDoubleFlat()
       }
-    } else if (Accidental.isSharp(this.accidental)) {
+    } else if (this.accidental.isSharp()) {
       /* remove flat accidental */
       this.removeAccidental()
-    } else if (Accidental.isDoubleSharp()) {
+    } else if (this.accidental.isDoubleSharp()) {
       /* if it has a double flat sharpen it by setting it to flat only */
-      this.setToSharp()
-    } else if (Accidental.isDoubleFlat()) {
-      /* if it has already a double sharp (not likely to happen) set it to next note and add a sharp to it */
+      this.accidental.setToSharp()
+    } else if (this.accidental.isDoubleFlat()) {
+      /* if it has already a double sharp set it to previous note and add a flat to it take care of the double sharps keeping for C and F  */
+      if (!this._isCorF()) {
+        this.accidental.setToFlat()
+      }
       this.setToPreviousNote()
-      this.removeAccidental()
-      this.flatten(addAccidental)
     }
   }
 

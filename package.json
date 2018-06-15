@@ -6,7 +6,8 @@
   "repository": "https://github.com/FaXaq/musix",
   "scripts": {
     "test": "node ./scripts/test.js",
-    "doc": "./node_modules/.bin/esdoc"
+    "doc": "./node_modules/.bin/esdoc",
+    "start": "node app.js"
   },
   "author": "Marin Procureur",
   "license": "MIT",

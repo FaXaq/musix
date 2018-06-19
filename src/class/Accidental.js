@@ -1,10 +1,15 @@
 /* default list of accidentals, used to check if string is accidental or not, keep this order and every occurence of data has to be of 5 : sharp, double sharp, flat, double flat, natural */
-const accidentals = ['s', 'ss', 'b', 'bb', 'n', '♯', '𝄪', '♭', '𝄫', '♮']
 const sharp = 's'
 const doubleSharp = 'ss'
 const flat = 'b'
 const doubleFlat = 'bb'
 const natural = 'n'
+const accidentals = [
+  sharp,
+  doubleSharp,
+  flat,
+  doubleFlat,
+  natural]
 
 module.exports = class Accidental {
 
@@ -119,6 +124,23 @@ module.exports = class Accidental {
 
   static getNatural() {
     return natural
+  }
+
+  static getAccidentals() {
+    return accidentals;
+  }
+
+  static getRandomAccidental() {
+    return new Accidental(accidentals[Math.floor(Math.random()*accidentals.length)])
+  }
+
+  static getRandomSimpleAccidental() {
+    let simpleAccidentals = [
+      '',
+      Accidental.getSharp(),
+      Accidental.getFlat()
+    ]
+    return new Accidental(simpleAccidentals[Math.floor(Math.random()*simpleAccidentals.length)])
   }
 
   static isAccidental(accidental) {

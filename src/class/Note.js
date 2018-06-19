@@ -56,6 +56,10 @@ class Note {
     this.pitch = pitch
   }
 
+  setAccidental(accidental) {
+    this.accidental = accidental
+  }
+
   getFullName() {
     return Note.getFullName(this)
   }
@@ -321,6 +325,25 @@ class Note {
 
   static getFullName(note) {
     return note.getName() + note.getAccidental().getName()
+  }
+
+  static getFullNameWithPitch(note) {
+    return note.getName() + note.getAccidental().getName() + note.getPitch().getValue()
+  }
+
+  static getRandomNote() {
+    return new Note(notes[Math.floor(Math.random() * notes.length)])
+  }
+
+  static getRandomNoteWithAccidental() {
+    let note = Note.getRandomNote()
+    let accidental = Accidental.getRandomSimpleAccidental()
+
+    if (note.isBorE() && accidental.isSharp()) note.sharpen()
+    else if (note.isCorF() && accidental.isFlat()) note.flatten()
+    else note.setAccidental(accidental)
+
+    return note
   }
 }
 

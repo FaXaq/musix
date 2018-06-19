@@ -151,4 +151,16 @@ describe("Note", function() {
       })
     })
   })
+
+  describe("When requesting a random note", function() {
+    it("should get a random note", function() {
+      expect(Note.getNotes().indexOf(Note.getRandomNote().getFullName())).toBeGreaterThan(-1)
+    })
+
+    it("should get a random note with accidental", function() {
+      let randomNote = Note.getRandomNoteWithAccidental();
+      expect(Note.getNotes().indexOf(randomNote.getName())).toBeGreaterThan(-1)
+      expect(randomNote.getAccidental() instanceof Accidental).toBe(true)
+    })
+  })
 })

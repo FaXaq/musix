@@ -22,22 +22,22 @@ describe("Note", function() {
 
   describe("When comparing note information", function() {
     it("should compare the name", function() {
-      let note = new Note('C', 4, 'b')
-      expect(Note.equalsName(note, new Note('C', 4, 'b'))).toBeTruthy()
-      expect(Note.equalsName(note, new Note('D', 4, 'b'))).toBeFalsy()
+      let note = new Note({ name: 'C', sciPitch: 4, accidental: 'b' })
+      expect(Note.equalsName(note, new Note({ name: 'C', sciPitch: 4, accidental: 'b' }))).toBeTruthy()
+      expect(Note.equalsName(note, new Note({ name: 'D', sciPitch: 4, accidental: 'b' }))).toBeFalsy()
     })
 
     it("should compare the accidentals", function() {
-      let note = new Note('C', 4, 'b')
-      expect(Note.equalsAccidental(note, new Note('C', 4, 'b'))).toBeTruthy()
-      expect(Note.equalsAccidental(note, new Note('D', 4, 's'))).toBeFalsy()
-      expect(Note.equalsAccidental(note, new Note('D', 4, ''))).toBeFalsy()
+      let note = new Note({ name: 'C', sciPitch: 4, accidental: 'b' })
+      expect(Note.equalsAccidental(note, new Note({ name: 'C', sciPitch: 4, accidental: 'b' }))).toBeTruthy()
+      expect(Note.equalsAccidental(note, new Note({ name: 'D', sciPitch: 4, accidental: 's' }))).toBeFalsy()
+      expect(Note.equalsAccidental(note, new Note({ name: 'D', sciPitch: 4 }))).toBeFalsy()
     })
 
     it("shloud compare the pitchs", function() {
-      let note = new Note('C', 4, 'b')
-      expect(Note.equalsPitch(note, new Note('C', 4, 'b'))).toBeTruthy()
-      expect(Note.equalsPitch(note, new Note('D', 3, 's'))).toBeFalsy()
+      let note = new Note({ name: 'C', sciPitch: 4, accidental: 'b' })
+      expect(Note.equalsPitch(note, new Note({ name: 'C', sciPitch: 4, accidental: 'b' }))).toBeTruthy()
+      expect(Note.equalsPitch(note, new Note({ name: 'D', sciPitch: 3, accidental: 's' }))).toBeFalsy()
     })
   })
 
@@ -56,21 +56,21 @@ describe("Note", function() {
     describe("with parameters", function() {
       /* default values should be a C 4 */
       it("should instanciate with only a name", function() {
-        let note = new Note('A')
+        let note = new Note({ name: 'A' })
         expect(note instanceof Note).toBeTruthy()
         expect(note.getName()).toBe('A')
         expect(note.pitch.getValue()).toEqual(4)
       })
 
       it("should instanciate with a name and a pitch", function() {
-        let note = new Note('A', 2)
+        let note = new Note({ name: 'A', sciPitch: 2 })
         expect(note instanceof Note).toBeTruthy()
         expect(note.getName()).toBe('A')
         expect(note.pitch.getValue()).toEqual(2)
       })
 
       it("should instanciate with a name, a pitch, and an accidental", function() {
-        let note = new Note('A', 2, 's')
+        let note = new Note({ name: 'A', sciPitch: 2, accidental: 's' })
         expect(note instanceof Note).toBeTruthy()
         expect(note.getName()).toBe('A')
         expect(note.pitch.getValue()).toEqual(2)
@@ -98,7 +98,7 @@ describe("Note", function() {
       })
 
       it("should be able to sharpen a flat twice", function() {
-        let note = new Note('E', 4, 'b')
+        let note = new Note({ name: 'E', sciPitch: 4, accidental: 'b' })
         note.sharpenTo(2)
         expect(note.getName()).toBe('F')
         expect(note.pitch.getValue()).toEqual(4)
@@ -114,7 +114,7 @@ describe("Note", function() {
       })
 
       it("should be able to sharpen it to the sharp above", function() {
-        let note = new Note('E', 4, 'ss')
+        let note = new Note({ name: 'E', sciPitch: 4, accidental: 'ss' })
         note.sharpen(true)
         expect(note.getName()).toBe('F')
         expect(note.pitch.getValue()).toEqual(4)
@@ -156,7 +156,7 @@ describe("Note", function() {
       })
 
       it("should be able to flatten a sharp", function() {
-        let note = new Note('F', 4, 's')
+        let note = new Note({ name: 'F', sciPitch: 4, accidental: 's' })
         note.flattenTo(-2)
         expect(note.getName()).toBe('E')
         expect(note.pitch.getValue()).toEqual(4)

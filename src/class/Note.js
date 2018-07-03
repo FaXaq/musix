@@ -10,6 +10,7 @@ const Accidental = require('./Accidental')
  * default notes, has to be in that order : A, B, C, D, E, F, G, you can change thoses names to : La, Si, Do, Ré, Mi, Fa, Sol for instance but keep the order !
  */
 const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
+const notesText = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
 /**
  * This is the Note class, it contains an API to handle notes (sharpen, flatten, check consistency, etc.)
@@ -22,18 +23,19 @@ class Note {
    * @param {string} note The note name
    * @param {number} sciPitch The scientific pitch for the note, default is 4
    * @param {string} accidental The note accidental (if needed)
-   * @param {string} accidental The note accidental (if needed)
    */
-  constructor (name, sciPitch, accidental) {
+  constructor (params) {
     /**
      * @property {string} name Name of the note (ie: A, B, C, etc.)
      * @property {number} pitch Scientific pitch of the note (ie: 4), by defaults it's set to false
      * @property {string} accidental Accidental of the note (optional)
      */
-    this.name = Note.validateName(name) ? name : 'C'
-    this.pitch = new Pitch(sciPitch)
-    this.accidental = accidental instanceof Accidental ?
-                      accidental : new Accidental(accidental);
+    this.name = (params && params.name && Note.validateName(params.name)) ? params.name : 'C'
+    this.pitch = (params && params.sciPitch) ? new Pitch(params.sciPitch) : new Pitch()
+    if (params && params.accidental) {
+      if (params.accidental instanceof Accidental) this.accidental = params.accidental
+      else this.accidental = new Accidental(params.accidental)
+    } else this.accidental = new Accidental
   }
 
   /**
@@ -60,6 +62,14 @@ class Note {
     this.accidental = accidental
   }
 
+  getText() {
+    return notesText[notes.indexOf(this.getName())]
+  }
+
+  getFullText() {
+    return Note.getFullText(this)
+  }
+
   getFullName() {
     return Note.getFullName(this)
   }
@@ -69,9 +79,11 @@ class Note {
   }
 
   duplicate() {
-    return new Note(this.name,
-                    this.pitch.getValue(),
-                    this.accidental.getName())
+    return new Note({
+      name: this.name,
+      sciPitch: this.pitch.getValue(),
+      accidental: this.accidental.getName()
+    })
   }
 
   incPitch() {
@@ -187,7 +199,7 @@ class Note {
       this.removeAccidental()
     } else if (this.accidental.isDoubleFlat()) {
       /* if it has a double flat sharpen it by setting it to flat only */
-      this.setToFlat()
+      this.accidental.setToFlat()
     } else if (this.accidental.isDoubleSharp()) {
       /* if it has already a double sharp set it to next note and add a sharp to it, take care of the double sharps keeping for E and B */
       if (!this.isBorE()) {
@@ -328,6 +340,10 @@ class Note {
            Note.equalsAccidental(note1, note2) ? true : false
   }
 
+  static getFullText(note) {
+    return note.getText() + note.getAccidental().getText()
+  }
+
   static getFullName(note) {
     return note.getName() + note.getAccidental().getName()
   }
@@ -337,7 +353,9 @@ class Note {
   }
 
   static getRandomNote() {
-    return new Note(notes[Math.floor(Math.random() * notes.length)])
+    return new Note({
+      name: notes[Math.floor(Math.random() * notes.length)]
+    })
   }
 
   static getRandomNoteWithAccidental() {

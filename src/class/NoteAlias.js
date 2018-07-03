@@ -2,48 +2,58 @@ const Note = require('./Note')
 const Pitch = require('./Pitch')
 
 const sharpToFlatAliases = {
-  "As": new Note("B", 4, "b"),
-  "Bs": new Note("C", 4),
-  "Cs": new Note("D", 4, "b"),
-  "Ds": new Note("E", 4, "b"),
-  "Es": new Note("F", 4),
-  "Fs": new Note("G", 4, "b"),
-  "Gs": new Note("A", 4, "b")
+  "As": new Note({ name: "B", accidental: "b" }),
+  "Bs": new Note({ name: "C" }),
+  "Cs": new Note({ name: "D", accidental: "b" }),
+  "Ds": new Note({ name: "E", accidental: "b" }),
+  "Es": new Note({ name: "F" }),
+  "Fs": new Note({ name: "G", accidental: "b" }),
+  "Gs": new Note({ name: "A", accidental: "b" })
 }
 const naturalToFlatAliases = {
-  "E": new Note("F", 4, "b"),
-  "B": new Note("C", 4, "b")
+  "A": new Note({ name: "B", accidental: "bb" }),
+  "B": new Note({ name: "C", accidental: "b" }),
+  "C": new Note({ name: "D", accidental: "bb" }),
+  "D": new Note({ name: "E", accidental: "bb" }),
+  "E": new Note({ name: "F", accidental: "b" }),
+  "F": new Note({ name: "G", accidental: "bb" }),
+  "G": new Note({ name: "A", accidental: "bb" })
 }
 const flatToSharpAliases = {
-  "Ab": new Note("G", 4, "s"),
-  "Bb": new Note("A", 4, "s"),
-  "Cb": new Note("B", 4),
-  "Db": new Note("C", 4, "s"),
-  "Eb": new Note("D", 4, "s"),
-  "Fb": new Note("E", 4),
-  "Gb": new Note("F", 4, "s")
+  "Ab": new Note({ name: "G", accidental: "s" }),
+  "Bb": new Note({ name: "A", accidental: "s" }),
+  "Cb": new Note({ name: "B" }),
+  "Db": new Note({ name: "C", accidental: "s" }),
+  "Eb": new Note({ name: "D", accidental: "s" }),
+  "Fb": new Note({ name: "E" }),
+  "Gb": new Note({ name: "F", accidental: "s" })
 }
 const naturalToSharpAliases = {
-  "F": new Note("E", 4, "s"),
-  "C": new Note("B", 4, "s")
+  "A": new Note({ name: "G", accidental: "ss" }),
+  "B": new Note({ name: "A", accidental: "ss" }),
+  "C": new Note({ name: "B", accidental: "s" }),
+  "D": new Note({ name: "C", accidental: "ss" }),
+  "E": new Note({ name: "D", accidental: "ss" }),
+  "F": new Note({ name: "E", accidental: "s" }),
+  "G": new Note({ name: "F", accidental: "ss" })
 }
 const doubleSharpAliases = {
-  "Ass": new Note('B', 4),
-  "Bss": new Note('C', 4, 's'),
-  "Css": new Note('D', 4),
-  "Dss": new Note('E', 4),
-  "Ess": new Note('F', 4, 's'),
-  "Fss": new Note('G', 4),
-  "Gss": new Note('A', 4)
+  "Ass": new Note({ name: 'B', sciPitch:  4 }),
+  "Bss": new Note({ name: 'C', sciPitch:  4, accidental: 's' }),
+  "Css": new Note({ name: 'D', sciPitch:  4 }),
+  "Dss": new Note({ name: 'E', sciPitch:  4 }),
+  "Ess": new Note({ name: 'F', sciPitch:  4, accidental: 's' }),
+  "Fss": new Note({ name: 'G', sciPitch:  4 }),
+  "Gss": new Note({ name: 'A', sciPitch:  4 })
 }
 const doubleFlatAliases = {
-  "Abb": new Note('G', 4),
-  "Bbb": new Note('A', 4),
-  "Cbb": new Note('B', 4, 'b'),
-  "Dbb": new Note('C', 4),
-  "Ebb": new Note('D', 4),
-  "Fbb": new Note('E', 4, 'b'),
-  "Gbb": new Note('F', 4)
+  "Abb": new Note({ name: 'G', sciPitch:  4 }),
+  "Bbb": new Note({ name: 'A', sciPitch:  4 }),
+  "Cbb": new Note({ name: 'B', sciPitch:  4, accidental: 'b' }),
+  "Dbb": new Note({ name: 'C', sciPitch:  4 }),
+  "Ebb": new Note({ name: 'D', sciPitch:  4 }),
+  "Fbb": new Note({ name: 'E', sciPitch:  4, accidental: 'b' }),
+  "Gbb": new Note({ name: 'F', sciPitch:  4 })
 }
 
 class NoteAlias {

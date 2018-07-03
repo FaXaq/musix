@@ -38,7 +38,7 @@ module.exports = class Scale {
 
     /* Initialize scale key */
     if (!params || !params.key || !(params.key instanceof Note)) {
-      this.key = new Note('C')
+      this.key = new Note({ name: 'C' })
     } else {
       this.key = params.key
     }
@@ -150,7 +150,10 @@ module.exports = class Scale {
         newNote = this._findParent(interval.getParent(), prevNote)
       }
 
-      newNote = this._applyIntervalChange(interval, newNote, prevNote, this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
+      newNote = this._applyIntervalChange(interval,
+                                          newNote,
+                                          prevNote,
+                                          this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
 
       if (Note.equalsName(newNote, prevNote) &&
           i > 0 &&

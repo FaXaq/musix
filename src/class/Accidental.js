@@ -9,7 +9,15 @@ const accidentals = [
   doubleSharp,
   flat,
   doubleFlat,
-  natural]
+  natural
+]
+const accidentalsText = [
+  '♯',
+  '𝄪',
+  '♭',
+  '𝄫',
+  '♮'
+]
 
 module.exports = class Accidental {
 
@@ -39,6 +47,10 @@ module.exports = class Accidental {
 
   getName() {
     return this.name
+  }
+
+  getText() {
+    return accidentalsText[accidentals.indexOf(this.getName())]
   }
 
   isSharp() {
@@ -102,7 +114,7 @@ module.exports = class Accidental {
    * check if accidental provided is a natural
    * @param {Accidental} accidental string provided to test
    */
-  static isDoubleFlat(accidental) {
+  static isNatural(accidental) {
     return (accidentals.indexOf(accidental.name) % 5 === 4)
   }
 

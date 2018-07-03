@@ -20,6 +20,27 @@ describe("Note", function() {
     })
   })
 
+  describe("When comparing note information", function() {
+    it("should compare the name", function() {
+      let note = new Note('C', 4, 'b')
+      expect(Note.equalsName(note, new Note('C', 4, 'b'))).toBeTruthy()
+      expect(Note.equalsName(note, new Note('D', 4, 'b'))).toBeFalsy()
+    })
+
+    it("should compare the accidentals", function() {
+      let note = new Note('C', 4, 'b')
+      expect(Note.equalsAccidental(note, new Note('C', 4, 'b'))).toBeTruthy()
+      expect(Note.equalsAccidental(note, new Note('D', 4, 's'))).toBeFalsy()
+      expect(Note.equalsAccidental(note, new Note('D', 4, ''))).toBeFalsy()
+    })
+
+    it("shloud compare the pitchs", function() {
+      let note = new Note('C', 4, 'b')
+      expect(Note.equalsPitch(note, new Note('C', 4, 'b'))).toBeTruthy()
+      expect(Note.equalsPitch(note, new Note('D', 3, 's'))).toBeFalsy()
+    })
+  })
+
   describe("When creating a new note", function() {
     describe("without parameters", function() {
       /* default values should be a C 4 */
@@ -158,7 +179,7 @@ describe("Note", function() {
     })
 
     it("should get a random note with accidental", function() {
-      let randomNote = Note.getRandomNoteWithAccidental();
+      let randomNote = Note.getRandomNoteWithAccidental()
       expect(Note.getNotes().indexOf(randomNote.getName())).toBeGreaterThan(-1)
       expect(randomNote.getAccidental() instanceof Accidental).toBe(true)
     })

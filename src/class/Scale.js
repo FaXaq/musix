@@ -30,14 +30,14 @@ module.exports = class Scale {
    */
   constructor(params) {
     /* Initialize scale name */
-    if (!params.name || !scales.hasOwnProperty(params.name)) {
+    if (!params || !params.name || !scales.hasOwnProperty(params.name)) {
       this.name = defaultScale
     } else {
       this.name = params.name
     }
 
     /* Initialize scale key */
-    if (!params.key || !(params.key instanceof Note)) {
+    if (!params || !params.key || !(params.key instanceof Note)) {
       this.key = new Note('C')
     } else {
       this.key = params.key
@@ -132,7 +132,7 @@ module.exports = class Scale {
     return this._applyIntervalChange(interval,
                                      prevNote.duplicate(),
                                      prevNote,
-                                     this.intervals.length >= Note.getNotes().length)
+                                     this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
   }
 
   /* populate notes */
@@ -150,9 +150,11 @@ module.exports = class Scale {
         newNote = this._findParent(interval.getParent(), prevNote)
       }
 
-      newNote = this._applyIntervalChange(interval, newNote, prevNote, this.intervals.length >= Note.getNotes().length)
+      newNote = this._applyIntervalChange(interval, newNote, prevNote, this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
 
-      if (Note.equalsName(newNote, prevNote) && i > 0) {
+      if (Note.equalsName(newNote, prevNote) &&
+          i > 0 &&
+          this.name != defaultScale) {
         newNote = NoteAlias.findAlias(newNote, this.key)
       }
 

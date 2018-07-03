@@ -10,6 +10,10 @@ const sharpToFlatAliases = {
   "Fs": new Note("G", 4, "b"),
   "Gs": new Note("A", 4, "b")
 }
+const naturalToFlatAliases = {
+  "E": new Note("F", 4, "b"),
+  "B": new Note("C", 4, "b")
+}
 const flatToSharpAliases = {
   "Ab": new Note("G", 4, "s"),
   "Bb": new Note("A", 4, "s"),
@@ -18,6 +22,10 @@ const flatToSharpAliases = {
   "Eb": new Note("D", 4, "s"),
   "Fb": new Note("E", 4),
   "Gb": new Note("F", 4, "s")
+}
+const naturalToSharpAliases = {
+  "F": new Note("E", 4, "s"),
+  "C": new Note("B", 4, "s")
 }
 const doubleSharpAliases = {
   "Ass": new Note('B', 4),
@@ -37,7 +45,6 @@ const doubleFlatAliases = {
   "Fbb": new Note('E', 4, 'b'),
   "Gbb": new Note('F', 4)
 }
-const naturalAliases = {}
 
 class NoteAlias {
   static findAlias(note, key) {
@@ -49,6 +56,10 @@ class NoteAlias {
       return NoteAlias.findDoubleSharpAlias(note)
     } else if (note.getAccidental().isDoubleFlat()) {
       return NoteAlias.findDoubleFlatAlias(note)
+    } else if (key.getAccidental().isFlat()) {
+      return NoteAlias.findFlatAliasFromNatural(note)
+    } else if (key.getAccidental().isSharp()) {
+      return NoteAlias.findSharpAliasFromNatural(note)
     }
 
     return note
@@ -56,56 +67,49 @@ class NoteAlias {
 
   /* get flat alias from sharp note */
   static findFlatAlias(note) {
-    let noteFullName = note.getFullName()
-    if (sharpToFlatAliases.hasOwnProperty(noteFullName)) {
-      let newNote = sharpToFlatAliases[noteFullName].duplicate()
-      newNote.setPitch(new Pitch(note.getPitch().getValue()))
-
-      /* if note was a C, we brought it down so dec the pitch */
-      if (note._isC()) newNote.incPitch()
-
-      return newNote
-    }
+    return NoteAlias._findNoteInAliases(sharpToFlatAliases, note, true)
   }
 
   /* find flat or natural alias from double flat note */
   static findDoubleFlatAlias(note) {
-    let noteFullName = note.getFullName()
-    if (doubleFlatAliases.hasOwnProperty(noteFullName)) {
-      let newNote = doubleFlatAliases[noteFullName].duplicate()
-      newNote.setPitch(new Pitch(note.getPitch().getValue()))
-
-      /* if note was a C, we brought it down so dec the pitch */
-      if (note._isC()) newNote.decPitch()
-
-      return newNote
-    }
+    return NoteAlias._findNoteInAliases(doubleFlatAliases, note, false)
   }
 
   /* get sharp alias from flat note */
   static findSharpAlias(note) {
-    let noteFullName = note.getFullName()
-    if (flatToSharpAliases.hasOwnProperty(noteFullName)) {
-      let newNote = flatToSharpAliases[noteFullName].duplicate()
-
-      newNote.setPitch(new Pitch(note.getPitch().getValue()))
-
-      /* if note was a C, we brought it up so inc the pitch */
-      if (note._isC()) newNote.decPitch()
-
-      return newNote
-    }
+    return NoteAlias._findNoteInAliases(flatToSharpAliases, note, false)
   }
 
   static findDoubleSharpAlias(note) {
+    return NoteAlias._findNoteInAliases(doubleSharpAliases, note, true)
+  }
+
+  static findFlatAliasFromNatural(note) {
+    return NoteAlias._findNoteInAliases(naturalToFlatAliases, note, true)
+  }
+
+  static findSharpAliasFromNatural(note) {
+    return NoteAlias._findNoteInAliases(naturalToSharpAliases, note, true)
+  }
+
+  static _findNoteInAliases(aliases, note, inc) {
     let noteFullName = note.getFullName()
-    if (doubleSharpAliases.hasOwnProperty(noteFullName)) {
-      let newNote = doubleSharpAliases[noteFullName].duplicate()
+    if (aliases.hasOwnProperty(noteFullName)) {
+      let newNote = aliases[noteFullName].duplicate()
 
       newNote.setPitch(new Pitch(note.getPitch().getValue()))
 
-      /* if note was a C, we brought it up so inc the pitch */
-      if (note._isC()) newNote.incPitch()
+      /* if note is a C, we brought it up so inc the pitch */
+      if (newNote._isC()) {
+        switch (inc) {
+          case true:
+            newNote.incPitch()
+            break;
+          default:
+            newNote.decPitch()
+            break;
+        }
+      }
 
       return newNote
     }

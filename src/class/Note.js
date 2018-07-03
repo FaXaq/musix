@@ -64,6 +64,10 @@ class Note {
     return Note.getFullName(this)
   }
 
+  getFullNameWithPitch() {
+    return Note.getFullNameWithPitch(this)
+  }
+
   duplicate() {
     return new Note(this.name,
                     this.pitch.getValue(),
@@ -308,13 +312,14 @@ class Note {
   static equalsPitch(note1, note2) {
     return note1 instanceof Note &&
            note2 instanceof Note &&
-           note1.pitch.getValue === note2.pitch.getValue ? true : false
+           note1.pitch.getValue() === note2.pitch.getValue() ? true : false
   }
 
   static equalsAccidental(note1, note2) {
+    /* issue here on import package but on in tests /!\ */
     return note1 instanceof Note &&
            note2 instanceof Note &&
-           note1.accidental.getName === note2.accidental.getName ? true : false
+           note1.accidental.getName() === note2.accidental.getName() ? true : false
   }
 
   static equals(note1, note2) {

@@ -184,4 +184,26 @@ describe("Note", function() {
       expect(randomNote.getAccidental() instanceof Accidental).toBe(true)
     })
   })
+
+  describe("When requesting ABC notation", function() {
+    it("should give note with low pitch", function() {
+      let note = new Note({ name: "E", sciPitch: 0 })
+      expect(note.getABCNotation()).toEqual("E,,,,")
+    })
+
+    it("should give note with high pitch", function() {
+      let note = new Note({ name: "F", sciPitch: 8 })
+      expect(note.getABCNotation()).toEqual("f'''")
+    })
+
+    it("should give note with normal pitch", function() {
+      let note = new Note({ name: "C", sciPitch: 4 })
+      expect(note.getABCNotation()).toEqual("C")
+    })
+
+    it("should give note with high pitch", function() {
+      let note = new Note({ name: "B", sciPitch: 5 })
+      expect(note.getABCNotation()).toEqual("b")
+    })
+  })
 })

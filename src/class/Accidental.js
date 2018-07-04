@@ -18,6 +18,13 @@ const accidentalsText = [
   '𝄫',
   '♮'
 ]
+const accidentalsABC = [
+  '^',
+  '^^',
+  '_',
+  '__',
+  '='
+]
 
 module.exports = class Accidental {
 
@@ -49,8 +56,16 @@ module.exports = class Accidental {
     return this.name
   }
 
+  getABCNotation() {
+    return Accidental.ABCNotation(this)
+  }
+
   getText() {
     return accidentalsText[accidentals.indexOf(this.getName())]
+  }
+
+  isAccidental() {
+    return Accidental.isAccidental(this)
   }
 
   isSharp() {
@@ -153,6 +168,12 @@ module.exports = class Accidental {
       Accidental.getFlat()
     ]
     return new Accidental(simpleAccidentals[Math.floor(Math.random()*simpleAccidentals.length)])
+  }
+
+  static ABCNotation(accidental) {
+    if (accidental.isAccidental())
+      return accidentalsABC[accidentals.indexOf(accidental.getName())]
+    else return
   }
 
   static isAccidental(accidental) {

@@ -31,7 +31,7 @@ class Note {
      * @property {string} accidental Accidental of the note (optional)
      */
     this.name = (params && params.name && Note.validateName(params.name)) ? params.name : 'C'
-    this.pitch = (params && params.sciPitch) ? new Pitch(params.sciPitch) : new Pitch()
+    this.pitch = (params && params.sciPitch !== undefined) ? new Pitch(params.sciPitch) : new Pitch()
     if (params && params.accidental) {
       if (params.accidental instanceof Accidental) this.accidental = params.accidental
       else this.accidental = new Accidental(params.accidental)
@@ -44,6 +44,10 @@ class Note {
 
   getName() {
     return this.name
+  }
+
+  getABCNotation() {
+    return Note.ABCNotation(this)
   }
 
   getAccidental() {
@@ -367,6 +371,33 @@ class Note {
     else note.setAccidental(accidental)
 
     return note
+  }
+
+  static ABCNotation(note) {
+    let abc = '';
+    let pitch = note.getPitch().getValue()
+
+    if (note.hasAccidental()) {
+      abc += note.getAccidental().getABCNotation()
+    }
+
+    /* render note name */
+    if (pitch > 4) {
+      abc += note.getName().toLowerCase()
+      pitch--
+      while (pitch - 4 > 0) {
+        abc += "'"
+        pitch--
+      }
+    } else {
+      abc += note.getName()
+      while (pitch < 4) {
+        abc += ","
+        pitch++
+      }
+    }
+
+    return abc
   }
 }
 

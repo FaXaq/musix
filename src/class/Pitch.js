@@ -21,10 +21,10 @@ class Pitch {
   }
 
   static validateSci(pitch) {
-    if (!pitch) {
+    if (pitch === undefined) {
       return 4
     } else if (typeof pitch === "number" &&
-               pitch > 0) {
+               pitch >= 0) {
       return pitch
     }
 

@@ -1,6 +1,6 @@
 {
   "name": "musix",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "musical api, giving you notes, intervals, scales and chords",
   "main": "app.js",
   "repository": "https://github.com/FaXaq/musix",

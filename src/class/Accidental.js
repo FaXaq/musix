@@ -61,7 +61,7 @@ module.exports = class Accidental {
   }
 
   getText() {
-    return accidentalsText[accidentals.indexOf(this.getName())]
+    return accidentalsText[accidentals.indexOf(this.getName())] || ''
   }
 
   isAccidental() {

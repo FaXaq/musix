@@ -227,7 +227,7 @@ class Note {
         this.accidental.setToDoubleFlat()
       }
     } else if (this.accidental.isSharp()) {
-      /* remove flat accidental */
+      /* remove sharp accidental */
       this.removeAccidental()
     } else if (this.accidental.isDoubleSharp()) {
       /* if it has a double flat sharpen it by setting it to flat only */

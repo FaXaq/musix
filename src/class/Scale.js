@@ -1,22 +1,29 @@
 const scales = {
   "chromatic": {
-    "intervals": ["P1","A1","M2","A2","M3","P4","A4","P5","A5","M6","A6","M7"]
+    "intervals": ["P1","A1","M2","A2","M3","P4","A4","P5","A5","M6","A6","M7"],
+    "text": "Chromatic",
   },
   "major": {
-    "intervals": ["P1","M2","M3","P4","P5","M6","M7"]
+    "intervals": ["P1","M2","M3","P4","P5","M6","M7"],
+    "minAlt": "maj",
+    "text": "Major",
   },
   "major-pentatonic": {
-    "intervals": ["P1","M2","M3","P5","M6"]
+    "intervals": ["P1","M2","M3","P5","M6"],
+    "text": "Major Pentatonic"
   },
   "minor": {
     "intervals": ["P1","M2","m3","P4","P5","m6","m7"],
-    "alt": "natural minor"
+    "alt": "natural minor",
+    "text": "Minor",
   },
   "blues": {
-    "intervals": ["P1","M2","M3","d5","P5","M6"]
+    "intervals": ["P1","M2","M3","d5","P5","M6"],
+    "text": "Blues"
   },
   "minor-pentatonic": {
-    "intervals": ["P1","m3","P4","P5","m7"]
+    "intervals": ["P1","m3","P4","P5","m7"],
+    "text": "Minor Pentatonic"
   },
 }
 const Interval = require('./Interval')
@@ -151,9 +158,9 @@ module.exports = class Scale {
       }
 
       newNote = this._applyIntervalChange(interval,
-                                          newNote,
-                                          prevNote,
-                                          this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
+        newNote,
+        prevNote,
+        this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
 
       if (Note.equalsName(newNote, prevNote) &&
           i > 0 &&

@@ -369,4 +369,327 @@ describe("Scale", function() {
       })
     })
   })
+  describe("When creating a minor scale", function() {
+    describe("With a key without accidental", function() {
+      it("Should be able to create A minor", function() {
+        let scale = new Scale({
+          name: 'minor',
+          key: new Note({ name: 'A' })
+        })
+        expect(scale.notes.length).toBe(7)
+        expect(scale.notes[0]).toEqual(new Note({ name: 'A' }))
+        expect(scale.notes[1]).toEqual(new Note({ name: 'B' }))
+        expect(scale.notes[2]).toEqual(new Note({ name: 'C', sciPitch: 5 }))
+        expect(scale.notes[3]).toEqual(new Note({ name: 'D', sciPitch: 5 }))
+        expect(scale.notes[4]).toEqual(new Note({ name: 'E', sciPitch: 5 }))
+        expect(scale.notes[5]).toEqual(new Note({ name: 'F', sciPitch: 5 }))
+        expect(scale.notes[6]).toEqual(new Note({ name: 'G', sciPitch: 5 }))
+      })
+
+      it("Should be able to create B minor", function() {
+        let scale = new Scale({
+          name: 'minor',
+          key: new Note({ name: 'B' })
+        })
+        expect(scale.notes.length).toBe(7)
+        expect(scale.notes[0]).toEqual(new Note({ name: 'B' }))
+        expect(scale.notes[1]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 's' }))
+        expect(scale.notes[2]).toEqual(new Note({ name: 'D', sciPitch: 5 }))
+        expect(scale.notes[3]).toEqual(new Note({ name: 'E', sciPitch: 5 }))
+        expect(scale.notes[4]).toEqual(new Note({ name: 'F', sciPitch: 5, accidental: 's' }))
+        expect(scale.notes[5]).toEqual(new Note({ name: 'G', sciPitch: 5 }))
+        expect(scale.notes[6]).toEqual(new Note({ name: 'A', sciPitch: 5 }))
+      })
+
+      it("Should be able to create C minor", function() {
+        let scale = new Scale({
+          name: 'minor',
+          key: new Note({ name: 'C' })
+        })
+        expect(scale.notes.length).toBe(7)
+        expect(scale.notes[0]).toEqual(new Note({ name: 'C' }))
+        expect(scale.notes[1]).toEqual(new Note({ name: 'D' }))
+        expect(scale.notes[2]).toEqual(new Note({ name: 'E', accidental: 'b' }))
+        expect(scale.notes[3]).toEqual(new Note({ name: 'F' }))
+        expect(scale.notes[4]).toEqual(new Note({ name: 'G' }))
+        expect(scale.notes[5]).toEqual(new Note({ name: 'A', accidental: 'b' }))
+        expect(scale.notes[6]).toEqual(new Note({ name: 'B', accidental: 'b' }))
+      })
+
+      it("Should be able to create D minor", function() {
+        let scale = new Scale({
+          name: 'minor',
+          key: new Note({ name: 'D' })
+        })
+        expect(scale.notes.length).toBe(7)
+        expect(scale.notes[0]).toEqual(new Note({ name: 'D' }))
+        expect(scale.notes[1]).toEqual(new Note({ name: 'E' }))
+        expect(scale.notes[2]).toEqual(new Note({ name: 'F' }))
+        expect(scale.notes[3]).toEqual(new Note({ name: 'G' }))
+        expect(scale.notes[4]).toEqual(new Note({ name: 'A' }))
+        expect(scale.notes[5]).toEqual(new Note({ name: 'B', accidental: 'b' }))
+        expect(scale.notes[6]).toEqual(new Note({ name: 'C', sciPitch: 5 }))
+      })
+
+      it("Should be able to create E minor", function() {
+        let scale = new Scale({
+          name: 'minor',
+          key: new Note({ name: 'E' })
+        })
+        expect(scale.notes.length).toBe(7)
+        expect(scale.notes[0]).toEqual(new Note({ name: 'E' }))
+        expect(scale.notes[1]).toEqual(new Note({ name: 'F', accidental: 's' }))
+        expect(scale.notes[2]).toEqual(new Note({ name: 'G' }))
+        expect(scale.notes[3]).toEqual(new Note({ name: 'A' }))
+        expect(scale.notes[4]).toEqual(new Note({ name: 'B' }))
+        expect(scale.notes[5]).toEqual(new Note({ name: 'C', sciPitch: 5 }))
+        expect(scale.notes[6]).toEqual(new Note({ name: 'D', sciPitch: 5 }))
+      })
+
+      it("Should be able to create F minor", function() {
+        let scale = new Scale({
+          name: 'minor',
+          key: new Note({ name: 'F' })
+        })
+        expect(scale.notes.length).toBe(7)
+        expect(scale.notes[0]).toEqual(new Note({ name: 'F' }))
+        expect(scale.notes[1]).toEqual(new Note({ name: 'G' }))
+        expect(scale.notes[2]).toEqual(new Note({ name: 'A', accidental: 'b' }))
+        expect(scale.notes[3]).toEqual(new Note({ name: 'B', accidental: 'b' }))
+        expect(scale.notes[4]).toEqual(new Note({ name: 'C', sciPitch: 5 }))
+        expect(scale.notes[5]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 'b' }))
+        expect(scale.notes[6]).toEqual(new Note({ name: 'E', sciPitch: 5, accidental: 'b' }))
+      })
+
+      it("Should be able to create G minor", function() {
+        let scale = new Scale({
+          name: 'minor',
+          key: new Note({ name: 'G' })
+        })
+        expect(scale.notes.length).toBe(7)
+        expect(scale.notes[0]).toEqual(new Note({ name: 'G' }))
+        expect(scale.notes[1]).toEqual(new Note({ name: 'A' }))
+        expect(scale.notes[2]).toEqual(new Note({ name: 'B', accidental: 'b' }))
+        expect(scale.notes[3]).toEqual(new Note({ name: 'C', sciPitch: 5 }))
+        expect(scale.notes[4]).toEqual(new Note({ name: 'D', sciPitch: 5 }))
+        expect(scale.notes[5]).toEqual(new Note({ name: 'E', sciPitch: 5, accidental: 'b' }))
+        expect(scale.notes[6]).toEqual(new Note({ name: 'F', sciPitch: 5 }))
+      })
+    })
+
+    describe("With a key with accidental", function() {
+      describe("sharp", function() {
+        it("Should be able to create A# minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'A', accidental: 's' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'A', accidental: 's' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'B', accidental: 's' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'E', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'F', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'G', sciPitch: 5, accidental: 's' }))
+        })
+
+        it("Should be able to create B# minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'B', accidental: 's' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'B', accidental: 's' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 'ss' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'E', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'F', sciPitch: 5, accidental: 'ss' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'G', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'A', sciPitch: 5, accidental: 's' }))
+        })
+
+        it("Should be able to create C# minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'C', accidental: 's' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'C', accidental: 's' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'D', accidental: 's' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'E' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'F', accidental: 's' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'G', accidental: 's' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'A' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'B' }))
+        })
+
+        it("Should be able to create D# minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'D', accidental: 's' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'D', accidental: 's' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'E', accidental: 's' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'F', accidental: 's' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'G', accidental: 's' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'A', accidental: 's' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'B' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 's' }))
+        })
+
+        it("Should be able to create E# minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'E', accidental: 's' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'E', accidental: 's' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'F', accidental: 'ss' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'G', accidental: 's' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'A', accidental: 's' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'B', accidental: 's' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 's' }))
+        })
+
+        it("Should be able to create F# minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'F', accidental: 's' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'F', accidental: 's' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'G', accidental: 's' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'A' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'B' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'D', sciPitch: 5 }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'E', sciPitch: 5 }))
+        })
+
+        it("Should be able to create G# minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'G', accidental: 's' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'G', accidental: 's' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'A', accidental: 's' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'B' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 's' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'E', sciPitch: 5 }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'F', sciPitch: 5, accidental: 's' }))
+        })
+      })
+      describe("flat", function() {
+        it("Should be able to create Ab minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'A', accidental: 'b' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'A', accidental: 'b' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'B', accidental: 'b' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'E', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'F', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'G', sciPitch: 5, accidental: 'b' }))
+        })
+
+        it("Should be able to create Bb minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'B', accidental: 'b' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'B', accidental: 'b' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'C', sciPitch: 5 }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'E', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'F', sciPitch: 5 }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'G', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'A', sciPitch: 5, accidental: 'b' }))
+        })
+
+        it("Should be able to create Cb minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'C', accidental: 'b' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'C', accidental: 'b' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'D', accidental: 'b' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'E', accidental: 'bb' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'F', accidental: 'b' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'G', accidental: 'b' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'A', accidental: 'bb' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'B', accidental: 'bb' }))
+        })
+
+        it("Should be able to create Db minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'D', accidental: 'b' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'D', accidental: 'b' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'E', accidental: 'b' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'F', accidental: 'b' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'G', accidental: 'b' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'A', accidental: 'b' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'B', accidental: 'bb' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 'b' }))
+        })
+
+        it("Should be able to create Eb minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'E', accidental: 'b' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'E', accidental: 'b' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'F' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'G', accidental: 'b' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'A', accidental: 'b' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'B', accidental: 'b' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 'b' }))
+        })
+
+        it("Should be able to create Fb minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'F', accidental: 'b' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'F', accidental: 'b' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'G', accidental: 'b' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'A', accidental: 'bb' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'B', accidental: 'bb' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 'bb' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'E', sciPitch: 5, accidental: 'bb' }))
+        })
+
+        it("Should be able to create Gb minor", function() {
+          let scale = new Scale({
+            name: 'minor',
+            key: new Note({ name: 'G', accidental: 'b' })
+          })
+          expect(scale.notes.length).toBe(7)
+          expect(scale.notes[0]).toEqual(new Note({ name: 'G', accidental: 'b' }))
+          expect(scale.notes[1]).toEqual(new Note({ name: 'A', accidental: 'b' }))
+          expect(scale.notes[2]).toEqual(new Note({ name: 'B', accidental: 'bb' }))
+          expect(scale.notes[3]).toEqual(new Note({ name: 'C', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[4]).toEqual(new Note({ name: 'D', sciPitch: 5, accidental: 'b' }))
+          expect(scale.notes[5]).toEqual(new Note({ name: 'E', sciPitch: 5, accidental: 'bb' }))
+          expect(scale.notes[6]).toEqual(new Note({ name: 'F', sciPitch: 5, accidental: 'b' }))
+        })
+      })
+    })
+  })
 })

@@ -50,8 +50,21 @@ module.exports = class Scale {
       this.key = params.key
     }
 
+    this._populateParams()
     this._populateIntervals()
     this._populateNotes()
+  }
+
+  getText() {
+    return this.text
+  }
+
+  getAlt() {
+    return this.alt ? this.alt : ''
+  }
+
+  getMinAlt() {
+    return this.minAlt ? this.minAlt : ''
   }
 
   /**
@@ -91,6 +104,14 @@ module.exports = class Scale {
     this.intervals = [];
     for (var i = 0; i < scales[this.name].intervals.length; i++) {
       this.intervals.push(new Interval(scales[this.name].intervals[i]))
+    }
+  }
+
+  _populateParams() {
+    for (var param in scales[this.name]) {
+      if (param !== 'intervals') {
+        this[param] = scales[this.name][param]
+      }
     }
   }
 
@@ -149,12 +170,17 @@ module.exports = class Scale {
       let interval = this.intervals[i]
       let prevNote = (i == 0) ? this.key : this.notes[i-1]
       let newNote = prevNote.duplicate()
+      let parent;
 
       /* if interval has parent or is not direct interval (Major or perfect) or has a different name from the previous interval we have to get it */
       if (interval.hasParent() &&
           (!interval.isDirect() ||
            interval.getParent().getName() !== this.intervals[i - 1].getName())) {
-        newNote = this._findParent(interval.getParent(), prevNote)
+             // store parent to sharpen or flatten from here
+             newNote = this._findParent(interval.getParent(), prevNote)
+             // if interval is direct, parent is necessary to be retrieve for aliases
+             // purposes, see _getAliasIfNeeded
+             if (interval.isDirect()) parent = newNote.duplicate()
       }
 
       newNote = this._applyIntervalChange(interval,
@@ -162,19 +188,34 @@ module.exports = class Scale {
         prevNote,
         this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
 
-      if (Note.equalsName(newNote, prevNote) &&
-          i > 0 &&
-          this.name != defaultScale) {
-        newNote = NoteAlias.findAlias(newNote, this.key)
-      }
+      // get alias if needed
+      newNote = this._getAliasIfNeeded(newNote, prevNote, parent, i)
 
       this.notes.push(newNote)
     }
+  }
+
+  _getAliasIfNeeded(newNote, prevNote, parent, i) {
+    if (Note.equalsName(newNote, parent) &&
+      i > 0 &&
+      this.name != defaultScale) {
+        newNote = NoteAlias.findAlias(newNote, this.key)
+      }
+    if (Note.equalsName(newNote, prevNote) &&
+      i > 0 &&
+      this.name != defaultScale) {
+        newNote = NoteAlias.findAlias(newNote, this.key)
+      }
+    return newNote
   }
 
   /* end have to refactor this part */
 
   _hasInterval(interval) {
     return this.getIntervalPosition(interval) > -1 ? true : false
+  }
+
+  static getScalesDefinitions() {
+    return scales
   }
 }

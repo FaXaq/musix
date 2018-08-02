@@ -112,15 +112,25 @@ class Note {
       this.sharpen(addAccidental, prevNote)
       semitones--
     }
-    return
+    return this
   }
 
-  toOctaveUp() {
-    this.incPitch()
+  toOctaveUp(i) {
+    if (i === undefined) i = 1
+    while (i) {
+      this.incPitch()
+      i--
+    }
+    return this
   }
 
-  toOctaveDown() {
-    this.decPitch()
+  toOctaveDown(i) {
+    if (i === undefined) i = 1
+    while (i) {
+      this.decPitch()
+      i--
+    }
+    return this
   }
 
   /**
@@ -146,7 +156,7 @@ class Note {
       this.flatten(addAccidental, prevNote)
       semitones++
     }
-    return
+    return this
   }
 
   /**

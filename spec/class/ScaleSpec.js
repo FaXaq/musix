@@ -15,7 +15,7 @@ describe("Scale", function() {
 
     it("should instanciate with a key", function() {
       let scale = new Scale({
-        key: defaultNote
+        root: defaultNote
       })
       expect(scale instanceof Scale).toBeTruthy()
     })
@@ -23,7 +23,7 @@ describe("Scale", function() {
     it("should instanciate with a key and a name", function() {
       let scale = new Scale({
         name: 'chromatic',
-        key: defaultNote
+        root: defaultNote
       })
       expect(scale instanceof Scale).toBeTruthy()
     })
@@ -34,7 +34,7 @@ describe("Scale", function() {
       it("should be able to create C major", function() {
         let scale = new Scale({
           name: 'major',
-          key: new Note({ name: 'C' })
+          root: new Note({ name: 'C' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'C' }))
@@ -49,7 +49,7 @@ describe("Scale", function() {
       it("should be able to create G major", function() {
         let scale = new Scale({
           name: 'major',
-          key: new Note({ name: 'G' })
+          root: new Note({ name: 'G' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'G' }))
@@ -64,7 +64,7 @@ describe("Scale", function() {
       it("should be able to create G major", function() {
         let scale = new Scale({
           name: 'major',
-          key: new Note({ name: 'G' })
+          root: new Note({ name: 'G' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'G' }))
@@ -79,7 +79,7 @@ describe("Scale", function() {
       it("should be able to create D major", function() {
         let scale = new Scale({
           name: 'major',
-          key: new Note({ name: 'D' })
+          root: new Note({ name: 'D' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'D' }))
@@ -94,7 +94,7 @@ describe("Scale", function() {
       it("should be able to create A major", function() {
         let scale = new Scale({
           name: 'major',
-          key: new Note({ name: 'A' })
+          root: new Note({ name: 'A' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'A' }))
@@ -109,7 +109,7 @@ describe("Scale", function() {
       it("should be able to create E major", function() {
         let scale = new Scale({
           name: 'major',
-          key: new Note({ name: 'E' })
+          root: new Note({ name: 'E' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'E' }))
@@ -124,7 +124,7 @@ describe("Scale", function() {
       it("should be able to create B major", function() {
         let scale = new Scale({
           name: 'major',
-          key: new Note({ name: 'B' })
+          root: new Note({ name: 'B' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'B' }))
@@ -139,7 +139,7 @@ describe("Scale", function() {
       it("should be able to create F major", function() {
         let scale = new Scale({
           name: 'major',
-          key: new Note({ name: 'F' })
+          root: new Note({ name: 'F' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'F' }))
@@ -157,7 +157,7 @@ describe("Scale", function() {
         it("should be able to create C# major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'C', accidental: 's' })
+            root: new Note({ name: 'C', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'C', accidental: 's' }))
@@ -172,7 +172,7 @@ describe("Scale", function() {
         it("should be able to create G# major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'G', accidental: 's' })
+            root: new Note({ name: 'G', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'G', accidental: 's' }))
@@ -187,7 +187,7 @@ describe("Scale", function() {
         it("should be able to create D# major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'D', accidental: 's' })
+            root: new Note({ name: 'D', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'D', accidental: 's' }))
@@ -202,7 +202,7 @@ describe("Scale", function() {
         it("should be able to create A# major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'A', accidental: 's' })
+            root: new Note({ name: 'A', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'A', accidental: 's'  }))
@@ -217,7 +217,7 @@ describe("Scale", function() {
         it("should be able to create E# major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'E', accidental: 's' })
+            root: new Note({ name: 'E', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'E', accidental: 's', }))
@@ -232,7 +232,7 @@ describe("Scale", function() {
         it("should be able to create B# major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'B', accidental: 's' })
+            root: new Note({ name: 'B', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'B', accidental: 's'  }))
@@ -247,7 +247,7 @@ describe("Scale", function() {
         it("should be able to create F# major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'F', accidental: 's' })
+            root: new Note({ name: 'F', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'F', accidental: 's' }))
@@ -263,7 +263,7 @@ describe("Scale", function() {
         it("should be able to create Cb major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'C', accidental: 'b' })
+            root: new Note({ name: 'C', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'C', accidental: 'b' }))
@@ -279,7 +279,7 @@ describe("Scale", function() {
         it("should be able to create Gb major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'G', accidental: 'b' })
+            root: new Note({ name: 'G', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'G', accidental: 'b' }))
@@ -294,7 +294,7 @@ describe("Scale", function() {
         it("should be able to create Db major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'D', accidental: 'b' })
+            root: new Note({ name: 'D', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'D', accidental: 'b' }))
@@ -309,7 +309,7 @@ describe("Scale", function() {
         it("should be able to create Ab major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'A', accidental: 'b' })
+            root: new Note({ name: 'A', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'A', accidental: 'b' }))
@@ -324,7 +324,7 @@ describe("Scale", function() {
         it("should be able to create Eb major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'E', accidental: 'b' })
+            root: new Note({ name: 'E', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'E', accidental: 'b' }))
@@ -339,7 +339,7 @@ describe("Scale", function() {
         it("should be able to create Bb major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'B', accidental: 'b' })
+            root: new Note({ name: 'B', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'B', accidental: 'b' }))
@@ -354,7 +354,7 @@ describe("Scale", function() {
         it("should be able to create Fb major", function() {
           let scale = new Scale({
             name: 'major',
-            key: new Note({ name: 'F', accidental: 'b' })
+            root: new Note({ name: 'F', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'F', accidental: 'b' }))
@@ -374,7 +374,7 @@ describe("Scale", function() {
       it("Should be able to create A minor", function() {
         let scale = new Scale({
           name: 'minor',
-          key: new Note({ name: 'A' })
+          root: new Note({ name: 'A' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'A' }))
@@ -389,7 +389,7 @@ describe("Scale", function() {
       it("Should be able to create B minor", function() {
         let scale = new Scale({
           name: 'minor',
-          key: new Note({ name: 'B' })
+          root: new Note({ name: 'B' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'B' }))
@@ -404,7 +404,7 @@ describe("Scale", function() {
       it("Should be able to create C minor", function() {
         let scale = new Scale({
           name: 'minor',
-          key: new Note({ name: 'C' })
+          root: new Note({ name: 'C' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'C' }))
@@ -419,7 +419,7 @@ describe("Scale", function() {
       it("Should be able to create D minor", function() {
         let scale = new Scale({
           name: 'minor',
-          key: new Note({ name: 'D' })
+          root: new Note({ name: 'D' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'D' }))
@@ -434,7 +434,7 @@ describe("Scale", function() {
       it("Should be able to create E minor", function() {
         let scale = new Scale({
           name: 'minor',
-          key: new Note({ name: 'E' })
+          root: new Note({ name: 'E' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'E' }))
@@ -449,7 +449,7 @@ describe("Scale", function() {
       it("Should be able to create F minor", function() {
         let scale = new Scale({
           name: 'minor',
-          key: new Note({ name: 'F' })
+          root: new Note({ name: 'F' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'F' }))
@@ -464,7 +464,7 @@ describe("Scale", function() {
       it("Should be able to create G minor", function() {
         let scale = new Scale({
           name: 'minor',
-          key: new Note({ name: 'G' })
+          root: new Note({ name: 'G' })
         })
         expect(scale.notes.length).toBe(7)
         expect(scale.notes[0]).toEqual(new Note({ name: 'G' }))
@@ -482,7 +482,7 @@ describe("Scale", function() {
         it("Should be able to create A# minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'A', accidental: 's' })
+            root: new Note({ name: 'A', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'A', accidental: 's' }))
@@ -497,7 +497,7 @@ describe("Scale", function() {
         it("Should be able to create B# minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'B', accidental: 's' })
+            root: new Note({ name: 'B', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'B', accidental: 's' }))
@@ -512,7 +512,7 @@ describe("Scale", function() {
         it("Should be able to create C# minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'C', accidental: 's' })
+            root: new Note({ name: 'C', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'C', accidental: 's' }))
@@ -527,7 +527,7 @@ describe("Scale", function() {
         it("Should be able to create D# minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'D', accidental: 's' })
+            root: new Note({ name: 'D', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'D', accidental: 's' }))
@@ -542,7 +542,7 @@ describe("Scale", function() {
         it("Should be able to create E# minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'E', accidental: 's' })
+            root: new Note({ name: 'E', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'E', accidental: 's' }))
@@ -557,7 +557,7 @@ describe("Scale", function() {
         it("Should be able to create F# minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'F', accidental: 's' })
+            root: new Note({ name: 'F', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'F', accidental: 's' }))
@@ -572,7 +572,7 @@ describe("Scale", function() {
         it("Should be able to create G# minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'G', accidental: 's' })
+            root: new Note({ name: 'G', accidental: 's' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'G', accidental: 's' }))
@@ -588,7 +588,7 @@ describe("Scale", function() {
         it("Should be able to create Ab minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'A', accidental: 'b' })
+            root: new Note({ name: 'A', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'A', accidental: 'b' }))
@@ -603,7 +603,7 @@ describe("Scale", function() {
         it("Should be able to create Bb minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'B', accidental: 'b' })
+            root: new Note({ name: 'B', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'B', accidental: 'b' }))
@@ -618,7 +618,7 @@ describe("Scale", function() {
         it("Should be able to create Cb minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'C', accidental: 'b' })
+            root: new Note({ name: 'C', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'C', accidental: 'b' }))
@@ -633,7 +633,7 @@ describe("Scale", function() {
         it("Should be able to create Db minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'D', accidental: 'b' })
+            root: new Note({ name: 'D', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'D', accidental: 'b' }))
@@ -648,7 +648,7 @@ describe("Scale", function() {
         it("Should be able to create Eb minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'E', accidental: 'b' })
+            root: new Note({ name: 'E', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'E', accidental: 'b' }))
@@ -663,7 +663,7 @@ describe("Scale", function() {
         it("Should be able to create Fb minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'F', accidental: 'b' })
+            root: new Note({ name: 'F', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'F', accidental: 'b' }))
@@ -678,7 +678,7 @@ describe("Scale", function() {
         it("Should be able to create Gb minor", function() {
           let scale = new Scale({
             name: 'minor',
-            key: new Note({ name: 'G', accidental: 'b' })
+            root: new Note({ name: 'G', accidental: 'b' })
           })
           expect(scale.notes.length).toBe(7)
           expect(scale.notes[0]).toEqual(new Note({ name: 'G', accidental: 'b' }))

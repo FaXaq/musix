@@ -29,13 +29,17 @@ const scales = {
 const Interval = require('./Interval')
 const Note = require('./Note')
 const NoteAlias = require('./NoteAlias')
+const Chord = require('./Chord')
+const IntervalHandler = require('../super/IntervalHandler.js')
 const defaultScale = 'chromatic'
 
-module.exports = class Scale {
+module.exports = class Scale extends IntervalHandler {
   /**
    * @param {object} params : Properties available (name, key)
    */
   constructor(params) {
+
+    super(params)
     /* Initialize scale name */
     if (!params || !params.name || !scales.hasOwnProperty(params.name)) {
       this.name = defaultScale
@@ -44,15 +48,40 @@ module.exports = class Scale {
     }
 
     /* Initialize scale key */
-    if (!params || !params.key || !(params.key instanceof Note)) {
-      this.key = new Note({ name: 'C' })
+    if (!params || !params.root || !(params.root instanceof Note)) {
+      this.root = new Note({ name: 'C' })
     } else {
-      this.key = params.key
+      this.root = params.root
     }
 
-    this._populateParams()
+    // Initialize custom intervals
+    if (params && params.intervals && (params.intervals instanceof Array)) {
+      this.intervals = params.intervals
+    }
+
+    this._populateParams(scales)
     this._populateIntervals()
-    this._populateNotes()
+    this._populateNotes(defaultScale)
+  }
+
+  getChords() {
+    let notesNumber = this.notes.length;
+    for (var i = 0; i < notesNumber; i++) {
+      let third = i + 2,
+          fifth = i + 4,
+          thirdIndex = third % notesNumber,
+          fifthIndex = fifth % notesNumber,
+          octaveThird = Math.floor(third / notesNumber),
+          octaveFifth = Math.floor(fifth / notesNumber)
+      console.log(new Chord({
+        root: this.notes[i].duplicate(),
+        notes: [
+          this.notes[i].duplicate(),
+          this.notes[thirdIndex].duplicate().toOctaveUp(octaveThird),
+          this.notes[fifthIndex].duplicate().toOctaveUp(octaveFifth)
+        ]
+      }))
+    }
   }
 
   getText() {
@@ -86,133 +115,6 @@ module.exports = class Scale {
     }
 
     return notesInScale >= count ? true : false
-  }
-
-  getNoteFromInterval(interval) {
-    return this.notes[this.getIntervalPosition(interval)].duplicate()
-  }
-
-
-  getIntervalPosition(interval) {
-    for (var i = 0; i < this.intervals.length; i++) {
-      if (interval.getName() === this.intervals[i].getName()) return i
-    }
-    return -1
-  }
-
-  _populateIntervals() {
-    this.intervals = [];
-    for (var i = 0; i < scales[this.name].intervals.length; i++) {
-      this.intervals.push(new Interval(scales[this.name].intervals[i]))
-    }
-  }
-
-  _populateParams() {
-    for (var param in scales[this.name]) {
-      if (param !== 'intervals') {
-        this[param] = scales[this.name][param]
-      }
-    }
-  }
-
-  /* have to refactor this part ----- */
-
-  /* Find parent from interval */
-  _findParent(interval, prevNote) {
-    /* check if it is in scale */
-    let newNote
-    /* if interval is already in the scale */
-    if (this._hasInterval(interval)) {
-      /* gather it */
-      // console.log('has parent')
-      newNote = this.getNoteFromInterval(interval)
-    } else {
-      /* else populate parent interval */
-      // console.log('has to calculate it')
-      newNote = this._populateParent(interval, prevNote)
-    }
-
-    // console.log('parent from interval', interval, "is", newNote)
-
-    return newNote
-  }
-
-  _applyIntervalChange(interval, note, prevNote, addAccidentals) {
-    if (interval.semitones > 0) {
-      note.sharpenTo(interval.semitones, addAccidentals, prevNote)
-    } else if (interval.semitones < 0) {
-      note.flattenTo(interval.semitones, addAccidentals, prevNote)
-    }
-    return note
-  }
-
-  /* populate parent to find (minor, diminished or augmented) */
-  _populateParent(interval, prevNote) {
-    /* if it is already in the scale, find it and return it */
-    if (this._hasInterval(interval)) {
-      /* console.log('found interval', interval)
-       * console.log('previous note is', prevNote)*/
-      return this.getNoteFromInterval(interval)
-    }
-
-    prevNote = this._populateParent(interval.getParent(),
-                                    prevNote)
-    return this._applyIntervalChange(interval,
-                                     prevNote.duplicate(),
-                                     prevNote,
-                                     this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
-  }
-
-  /* populate notes */
-  _populateNotes() {
-    this.notes = []
-    for (var i = 0; i < this.intervals.length; i++) {
-      let interval = this.intervals[i]
-      let prevNote = (i == 0) ? this.key : this.notes[i-1]
-      let newNote = prevNote.duplicate()
-      let parent;
-
-      /* if interval has parent or is not direct interval (Major or perfect) or has a different name from the previous interval we have to get it */
-      if (interval.hasParent() &&
-          (!interval.isDirect() ||
-           interval.getParent().getName() !== this.intervals[i - 1].getName())) {
-             // store parent to sharpen or flatten from here
-             newNote = this._findParent(interval.getParent(), prevNote)
-             // if interval is direct, parent is necessary to be retrieve for aliases
-             // purposes, see _getAliasIfNeeded
-             if (interval.isDirect()) parent = newNote.duplicate()
-      }
-
-      newNote = this._applyIntervalChange(interval,
-        newNote,
-        prevNote,
-        this.intervals.length >= Note.getNotes().length && this.name !== defaultScale)
-
-      // get alias if needed
-      newNote = this._getAliasIfNeeded(newNote, prevNote, parent, i)
-
-      this.notes.push(newNote)
-    }
-  }
-
-  _getAliasIfNeeded(newNote, prevNote, parent, i) {
-    if (Note.equalsName(newNote, parent) &&
-      i > 0 &&
-      this.name != defaultScale) {
-        newNote = NoteAlias.findAlias(newNote, this.key)
-      }
-    if (Note.equalsName(newNote, prevNote) &&
-      i > 0 &&
-      this.name != defaultScale) {
-        newNote = NoteAlias.findAlias(newNote, this.key)
-      }
-    return newNote
-  }
-
-  /* end have to refactor this part */
-
-  _hasInterval(interval) {
-    return this.getIntervalPosition(interval) > -1 ? true : false
   }
 
   static getScalesDefinitions() {
